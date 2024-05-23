@@ -1,50 +1,30 @@
-const wordToDigit = (word) => {
-  switch (word) {
-    case "one":
-      return "1";
-    case "two":
-      return "2";
-    case "three":
-      return "3";
-    case "four":
-      return "4";
-    case "five":
-      return "5";
-    case "six":
-      return "6";
-    case "seven":
-      return "7";
-    case "eight":
-      return "8";
-    case "nine":
-      return "9";
-    case "zero":
-      return "0";
-    default:
-      return "";
-  }
-};
+const phonewords = "nine six double three four nine triple five zero";
 
-const convertPhoneNumber = (phoneWords) => {
-  const words = phoneWords.split(" ");
-  let phoneNumber = "";
-  for (let index = 0; index < words.length; index++) {
-    let word = words[index];
-    if (word === "double") {
-      const digit = wordToDigit(words[index + 1]);
-      phoneNumber += digit + digit;
-      index++;
-    } else if (word === "triple") {
-      const digit = wordToDigit(words[index + 1]);
-      phoneNumber += digit + digit + digit;
-      index++;
-    } else {
-      phoneNumber += wordToDigit(word);
-    }
-  }
-  return phoneNumber;
+const words = phonewords.split(" ");
+let phoneNumber = "";
+let i = 0;
+const wordToDigit = {
+  zero: "0",
+  one: "1",
+  two: "2",
+  three: "3",
+  four: "4",
+  five: "5",
+  six: "6",
+  seven: "7",
+  eight: "8",
+  nine: "9",
 };
-
-const phoneWords = "double six two six seven triple six three five three";
-const phoneNumber = convertPhoneNumber(phoneWords);
+while (i < words.length) {
+  if (words[i] === "double") {
+    phoneNumber += wordToDigit[words[i + 1]].repeat(2);
+    i += 2;
+  } else if (words[i] === "triple") {
+    phoneNumber += wordToDigit[words[i + 1]].repeat(3);
+    i += 2;
+  } else {
+    phoneNumber += wordToDigit[words[i]];
+    i++;
+  }
+}
 console.log(phoneNumber);
